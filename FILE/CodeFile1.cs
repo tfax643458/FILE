@@ -5,7 +5,7 @@
 
 //補足　"y/any"==yesの時はy,noのときは他のキー
 
-using System;
+using System; 
 using System.IO;
 
 namespace createfile
