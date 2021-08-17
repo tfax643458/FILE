@@ -1,11 +1,11 @@
 ﻿
 
-//このプログラムはファイルを読み込み、配列に入れ、それを別のファイルに書き込む物です。
+//このプログラムはテキストファイルを読み込み、配列に入れ、それを別のファイルに書き込む物です。
 //ファイルを指定すれば使えるので実行してみてください。
 
 //補足　"y/any"==yesの時はy,noのときは他のキー
 
-using System;
+using System; 
 using System.IO;
 
 namespace createfile
@@ -28,17 +28,17 @@ namespace createfile
 
             for (i2 = 0; i2 < 1;)
             {
-                Console.Write("読み込むファイルのパスを指定してください。\n>>");
+                Console.Write("読み込むテキストファイルのパスを指定してください。\n>>");
                 LoadFilePath = Console.ReadLine();
 
-                StreamReader file = new StreamReader(@LoadFilePath);
-                while ((line = file.ReadLine()) != null)
+                StreamReader file = new StreamReader(@LoadFilePath);    //"file"に指定したファイルを読み込ませる
+                while ((line = file.ReadLine()) != null)                //ReadLineメソッドを使用し一行ずつ、データが無くなるまで実行
                 {
-                    Console.WriteLine(line);
-                    date[counter] = line;
-                    counter++;
+                    Console.WriteLine(line);　//読み込んだデータを表示
+                    date[counter] = line;　　 //一行ごと配列に入れる
+                    counter++;　　　　　　　　//何行読み込んだかをカウント
                 }
-                file.Close();
+                file.Close();  //ファイルを閉じる
 
                 Console.Write("\n>>There were {0} lines.\n>>このデータを書き込みますか?(y/any)\n>>", counter);
 
@@ -50,23 +50,27 @@ namespace createfile
                     WriteFilePath = Console.ReadLine();
 
                     Console.WriteLine(">>start\n");
-                    using (var fileStream = new FileStream(@WriteFilePath, FileMode.Open))
+                    using (var fileStream = new FileStream(@WriteFilePath, FileMode.Open))  //FileStreamクラスを利用し書き込むファイルを開く
                     {
-                        fileStream.SetLength(0);
+                        fileStream.SetLength(0);     //書き込むファイルのサイズを0にしてデータを消去
                     }
-                    //↑書き込むファイルのサイズを0にしてデータを消去
 
                     for (i = 0; i < 1;)
                     {
-                        File.AppendAllText(@WriteFilePath, date[cs] + Environment.NewLine);
-                        cs++;
-                        if (counter == cs)
+                        if (counter > cs)
+                        { 
+                            File.AppendAllText(@WriteFilePath, date[cs]);　//date配列に入っている値を書き込む
+                            cs++;
+                            if (counter > cs)
+                            {
+                                File.AppendAllText(WriteFilePath, Environment.NewLine); //+Environmentで改行
+                            }
+                        }
+                        else
                         {
                             i = 2;
                         }
                     }
-                    //↑lineC配列に入っているデータを一行ずつ書き込み
-
                     Console.WriteLine(">>Complete\n");
                 }
                 else
