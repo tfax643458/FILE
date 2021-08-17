@@ -1,9 +1,11 @@
 ﻿
 
 //このプログラムはファイルを読み込み、配列に入れ、それを別のファイルに書き込む物です。
-//"y/any"==yesの時はy,noのときは他のキー
+//ファイルを指定すれば使えるので実行してみてください。
 
-using System;
+//補足　"y/any"==yesの時はy,noのときは他のキー
+
+using System; 
 using System.IO;
 
 namespace createfile
